@@ -1,3 +1,3 @@
 (function(){
-    socket.send(`Commands:\nm!help\nm!translate`)
+    socket.send(`Commands:\nm!help\nm!translate\nm!statscode`)
 })

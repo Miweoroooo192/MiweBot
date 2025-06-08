@@ -2,6 +2,7 @@ const io = require("socket.io-client")
 const fs = require("fs")
 const { translate } = require('bing-translate-api');
 const he = require("he");
+const https = require('https');
 const socket = io("https://www.windows93.net:8088", {
     reconnectionAttempts: Infinity, // Retry forever 
     reconnectionDelay: 1000, // Initial delay of 1 second 
