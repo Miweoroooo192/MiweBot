@@ -1,7 +1,16 @@
-(function(){ 
-    rusky = he.decode(data.msg.split(' '))
-    https.get(rusky[2], (res) => {
-    console.log(`Status Code: ${res.statusCode}`);
-}).on('error', (err) => {
-    console.error(`Error: ${err.message}`);
-})});
+(async function(){ 
+    rusky = data.msg
+    words = rusky.split(' ')
+    decodedWords = words.map(word => he.decode(word)); // Decodes each word separately
+    
+    try {
+    const response = await fetch(decodedWords[1]);
+    const body = await response.text();
+
+    tbsend(body);
+    }
+    catch(ex){
+        tbsend(ex)
+    }
+    
+});

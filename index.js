@@ -1,8 +1,10 @@
+let odd = true
 const io = require("socket.io-client")
 const fs = require("fs")
 const { translate } = require('bing-translate-api');
 const he = require("he");
-const https = require('https');
+const http = require('http');
+const { fetch } = require('node-fetch')
 const socket = io("https://www.windows93.net:8088", {
     reconnectionAttempts: Infinity, // Retry forever 
     reconnectionDelay: 1000, // Initial delay of 1 second 
@@ -34,6 +36,15 @@ if (configo.dev) {
 }
 function getCommands() {
 	return fs.readdirSync('cmds').filter(j=>j.endsWith('.js')).map(e=>configo.prefix+e.slice(0,-3))
+}
+function tbsend(msg) {
+  	if (odd) {
+    socket.send(msg)
+    odd = false
+  	} else {
+    socket.send(msg + ' ')
+    odd = true
+  }
 }
 socket.on("message", async function(data) {
     if (data.msg.startsWith(configo.prefix)) {
